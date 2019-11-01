@@ -4,8 +4,7 @@ export class Todo extends Component {
   constructor() {
     super();
     this.state = {
-      todos: [],
-      newTodo: ''
+      todos: []
     }
   }
 
@@ -17,15 +16,16 @@ export class Todo extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const todos = [...this.state.todos, this.state.newTodo];
-    this.setState({ todos, newTodo: '' })
+    const todos = [...this.state.todos, this.input.value];
+    this.input.value = ''
+    this.setState({ todos })
   }
 
   render() {
     return (
       <div>
         <form>
-          <input onChange={this.handleChange.bind(this)} value={this.state.newTodo} type="text" placeholder="todo" />
+          <input ref={node => this.input = node} type="text" placeholder="todo" />
           <button onClick={this.handleClick.bind(this)}>create</button>
         </form>
         <ul>
