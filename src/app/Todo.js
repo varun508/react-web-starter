@@ -16,9 +16,15 @@ export class Todo extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const todos = [...this.state.todos, this.input.value];
+    this.state.todos.push(this.input.value)
     this.input.value = ''
-    this.setState({ todos })
+    this.setState({ todos: this.state.todos })
+    this.input.focus()
+  }
+
+  removeTodo(index) {
+    this.state.todos.splice(index, 1)
+    this.setState({ todos: this.state.todos })
   }
 
   render() {
@@ -29,7 +35,7 @@ export class Todo extends Component {
           <button onClick={this.handleClick.bind(this)}>create</button>
         </form>
         <ul>
-          {this.state.todos.map((todo, index) => (<li key={index}>{todo}</li>))}
+          {this.state.todos.map((todo, index) => (<li onClick={this.removeTodo.bind(this, index)} key={index}>{todo}</li>))}
         </ul>
       </div>
     );
